@@ -3,14 +3,11 @@ import { flagConvertor } from './functions';
 import useInput from './hook/useInput';
 import './App.css';
 function CurrencyExchangeUI() {
-  const [toCurrency, setToCurrency] = useState('EUR');
-  const [fromCurrency, setFromCurrency] = useState('USD');
+  const [toCurrency, setToCurrency] = useState('USD');
+  const [fromCurrency, setFromCurrency] = useState('IRR');
   const [result, setResult] = useState(null);
 
   const currentValue = useInput(1); // Changed default to 1
-
-  const apiKey = 'f20390c9a6c3d7f74ad545293e4a2081';
-
   useEffect(() => {
     if (
       !currentValue.value ||
@@ -24,21 +21,17 @@ function CurrencyExchangeUI() {
 
     const controller = new AbortController();
     const timer = setTimeout(() => {
-      fetch(
-        `https://api.exchangerate.host/convert?access_key=${apiKey}&from=${fromCurrency}&to=${toCurrency}&amount=${currentValue.value}`,
-        {
-          method: 'GET',
-          signal: controller.signal,
-        }
-      )
+      fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`, {
+        signal: controller.signal,
+      })
         .then((res) => res.json())
         .then((data) => {
-          if (data.success) {
-            setResult(data.result);
-          }
+          console.log(data);
+
+          setResult(currentValue.value * data.rates[toCurrency]);
         })
         .catch((err) => console.log(err));
-    }, 500); // Reduced delay to 500ms
+    }, 500);
 
     return () => {
       controller.abort();
@@ -47,7 +40,7 @@ function CurrencyExchangeUI() {
   }, [currentValue.value, toCurrency, fromCurrency]);
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-6">
+    <div className="  max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-800">
         🌍 Currency Exchange
       </h2>
@@ -74,6 +67,18 @@ function CurrencyExchangeUI() {
               <option value="GBP">GBP</option>
               <option value="JPY">JPY</option>
               <option value="CAD">CAD</option>
+              <option value="AUD">AUD</option>
+              <option value="CHF">CHF</option>
+              <option value="CNY">CNY</option>
+              <option value="SEK">SEK</option>
+              <option value="NZD">NZD</option>
+              <option value="INR">INR</option>
+              <option value="IRR">IRR</option>
+              <option value="AED">AED</option>
+              <option value="TRY">TRY</option>
+              <option value="RUB">RUB</option>
+              <option value="BRL">BRL</option>
+              <option value="ZAR">ZAR</option>
             </select>
           </div>
         </div>
@@ -94,11 +99,23 @@ function CurrencyExchangeUI() {
               value={toCurrency}
               onChange={(e) => setToCurrency(e.target.value)}
             >
-              <option value="EUR">EUR</option>
               <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
               <option value="GBP">GBP</option>
               <option value="JPY">JPY</option>
               <option value="CAD">CAD</option>
+              <option value="AUD">AUD</option>
+              <option value="CHF">CHF</option>
+              <option value="CNY">CNY</option>
+              <option value="SEK">SEK</option>
+              <option value="NZD">NZD</option>
+              <option value="INR">INR</option>
+              <option value="IRR">IRR</option>
+              <option value="AED">AED</option>
+              <option value="TRY">TRY</option>
+              <option value="RUB">RUB</option>
+              <option value="BRL">BRL</option>
+              <option value="ZAR">ZAR</option>
             </select>
           </div>
         </div>
