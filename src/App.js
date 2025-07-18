@@ -39,7 +39,7 @@ function CurrencyExchangeUI() {
   }, [currentValue.value, toCurrency, fromCurrency]);
 
   return (
-    <div className="  max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-6">
+    <div className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-800">
         🌍 Currency Exchange
       </h2>
