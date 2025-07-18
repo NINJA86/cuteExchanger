@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { flagConvertor } from './functions';
 import useInput from './hook/useInput';
-import './App.css';
 function CurrencyExchangeUI() {
   const [toCurrency, setToCurrency] = useState('USD');
   const [fromCurrency, setFromCurrency] = useState('IRR');
