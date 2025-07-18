@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { flagConvertor } from './functions';
-import useInput from './hook/useInput';
+import { useEffect, useState } from "react";
+import { flagConvertor } from "./functions";
+import useInput from "./hook/useInput";
+
 function CurrencyExchangeUI() {
-  const [toCurrency, setToCurrency] = useState('USD');
-  const [fromCurrency, setFromCurrency] = useState('IRR');
+  const [fromCurrency, setFromCurrency] = useState("EUR");
+  const [toCurrency, setToCurrency] = useState("USD");
   const [result, setResult] = useState(null);
 
-  const currentValue = useInput(1); // Changed default to 1
+  const currentValue = useInput(1);
   useEffect(() => {
     if (
       !currentValue.value ||
-      !toCurrency ||
-      !fromCurrency ||
       toCurrency === fromCurrency
     ) {
       setResult(null);
@@ -25,8 +24,6 @@ function CurrencyExchangeUI() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-
           setResult(currentValue.value * data.rates[toCurrency]);
         })
         .catch((err) => console.log(err));
@@ -45,7 +42,6 @@ function CurrencyExchangeUI() {
       </h2>
 
       <div className="flex items-center justify-between gap-4">
-        {/* From Currency */}
         <div className="w-1/2">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             From
@@ -72,7 +68,6 @@ function CurrencyExchangeUI() {
               <option value="SEK">SEK</option>
               <option value="NZD">NZD</option>
               <option value="INR">INR</option>
-              <option value="IRR">IRR</option>
               <option value="AED">AED</option>
               <option value="TRY">TRY</option>
               <option value="RUB">RUB</option>
@@ -82,7 +77,6 @@ function CurrencyExchangeUI() {
           </div>
         </div>
 
-        {/* To Currency */}
         <div className="w-1/2">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             To
@@ -109,7 +103,6 @@ function CurrencyExchangeUI() {
               <option value="SEK">SEK</option>
               <option value="NZD">NZD</option>
               <option value="INR">INR</option>
-              <option value="IRR">IRR</option>
               <option value="AED">AED</option>
               <option value="TRY">TRY</option>
               <option value="RUB">RUB</option>
@@ -120,7 +113,6 @@ function CurrencyExchangeUI() {
         </div>
       </div>
 
-      {/* Amount input */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Amount
@@ -134,12 +126,11 @@ function CurrencyExchangeUI() {
         />
       </div>
 
-      {/* Result display */}
       <div className="text-center bg-blue-50 border border-blue-200 rounded-xl py-4">
         <p className="text-gray-600 text-sm">Conversion Result:</p>
         <p className="text-xl font-semibold text-blue-600">
-          {currentValue.value || 0} {fromCurrency} ={' '}
-          {result ? result.toFixed(4) : '--'} {toCurrency}
+          {currentValue.value || 0} {fromCurrency} ={" "}
+          {result ? result.toFixed(4) : "--"} {toCurrency}
         </p>
       </div>
     </div>
